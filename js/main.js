@@ -6,6 +6,81 @@ const MOTIFS = {
   rocket: `<svg class="motif" viewBox="0 0 56 56" fill="currentColor" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg"><rect x="24" y="0" width="8" height="4"/><rect x="24" y="4" width="8" height="4"/><rect x="20" y="8" width="16" height="4"/><rect x="16" y="12" width="24" height="4"/><rect x="16" y="16" width="24" height="4"/><rect x="12" y="20" width="32" height="4"/><rect x="12" y="24" width="32" height="4"/><rect x="8" y="28" width="40" height="4"/><rect x="8" y="32" width="40" height="4"/><rect x="4" y="36" width="48" height="4"/><rect x="0" y="40" width="56" height="4"/><rect x="0" y="44" width="56" height="4"/><rect x="20" y="48" width="16" height="4"/><rect x="24" y="52" width="8" height="4"/></svg>`
 };
 
+const FLAP_SOURCE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+-*/><=._:#';
+const TITLE_SELECTOR = 'h1 .stack, .screen-title, .panel h3, .build-title, .award .t, .skill-block h4';
+
+function buildFlapMarkup(text) {
+  const frag = document.createDocumentFragment();
+  let charIndex = 0;
+
+  [...text].forEach(ch => {
+    if (ch === ' ') {
+      const gap = document.createElement('span');
+      gap.className = 'word-gap';
+      gap.setAttribute('aria-hidden', 'true');
+      frag.appendChild(gap);
+      return;
+    }
+
+    const pool = [...new Set((FLAP_SOURCE + ch.toUpperCase()).split(''))];
+    const cycles = 5 + (charIndex % 4);
+    const glyphs = Array.from({ length: cycles }, (_, idx) => pool[(charIndex + idx) % pool.length]);
+    glyphs.push(ch);
+
+    const char = document.createElement('span');
+    char.className = 'char';
+    char.setAttribute('aria-hidden', 'true');
+    char.style.setProperty('--flap-step', glyphs.length - 1);
+    char.style.setProperty('--flap-delay', `${charIndex * 45}ms`);
+    char.style.setProperty('--flap-duration', `${560 + glyphs.length * 70}ms`);
+
+    const stack = document.createElement('span');
+    stack.className = 'char-stack';
+
+    glyphs.forEach(glyph => {
+      const node = document.createElement('span');
+      node.className = 'glyph';
+      node.textContent = glyph;
+      stack.appendChild(node);
+    });
+
+    char.appendChild(stack);
+    frag.appendChild(char);
+    charIndex += 1;
+  });
+
+  return frag;
+}
+
+function enhanceTitleFlaps(root = document) {
+  root.querySelectorAll(TITLE_SELECTOR).forEach(el => {
+    if (el.dataset.flapReady === 'true') return;
+
+    const text = (el.textContent || '').trim().replace(/\s+/g, ' ');
+    if (!text) return;
+
+    el.dataset.flapReady = 'true';
+    el.dataset.flapText = text;
+    el.setAttribute('aria-label', text);
+    el.textContent = '';
+
+    const wrapper = document.createElement('span');
+    wrapper.className = 'title-flap';
+    wrapper.setAttribute('aria-hidden', 'true');
+    wrapper.appendChild(buildFlapMarkup(text));
+    el.appendChild(wrapper);
+  });
+}
+
+function playTitleFlaps(scope = document) {
+  scope.querySelectorAll('[data-flap-ready="true"] .title-flap').forEach((wrapper, index) => {
+    wrapper.classList.remove('is-animating');
+    void wrapper.offsetWidth;
+    wrapper.style.setProperty('--section-delay', `${index * 70}ms`);
+    wrapper.classList.add('is-animating');
+  });
+}
+
 function renderBuilds() {
   const grid = document.getElementById('builds-grid');
   if (!grid) return;
@@ -25,6 +100,7 @@ function renderBuilds() {
   const placeholder = `<div class="coming">+ NEW BUILD <span class="blink">_</span><br><span style="font-size:9px; color:var(--gray)">DROP YOUR NEXT PROJECT HERE</span></div>`;
 
   grid.innerHTML = cards + placeholder;
+  enhanceTitleFlaps(grid);
 
   grid.querySelectorAll('.build').forEach(el => el.addEventListener('mouseenter', () => blip(440)));
 }
@@ -54,10 +130,14 @@ function show(id) {
   navBtns.forEach(b => b.classList.toggle('active', b.dataset.screen === id));
   hud.classList.remove('open');
   window.scrollTo({ top: 0 });
+  const activeScreen = document.getElementById(id);
+  if (activeScreen) playTitleFlaps(activeScreen);
   blip(id === 'home' ? 660 : 520);
 }
 
+enhanceTitleFlaps();
 renderBuilds();
+playTitleFlaps(document.querySelector('.screen.active') || document);
 
 navBtns.forEach(b => b.addEventListener('click', () => show(b.dataset.screen)));
 document.querySelectorAll('[data-goto]').forEach(b => b.addEventListener('click', () => { blip(880); show(b.dataset.goto); }));
