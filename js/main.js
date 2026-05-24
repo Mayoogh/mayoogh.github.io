@@ -26,7 +26,49 @@ function renderBuilds() {
 
   grid.innerHTML = cards + placeholder;
 
-  grid.querySelectorAll('.build').forEach(el => el.addEventListener('mouseenter', () => blip(440)));
+  grid.querySelectorAll('.build').forEach(el => el.addEventListener('mouseenter', () => {
+    blip(440);
+    flipEl(el.querySelector('.build-title'), 0);
+  }));
+}
+
+// ── Split-flap effect ────────────────────────────────────────────
+const FF = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?#&+-><./';
+
+function flipEl(el, baseDelay) {
+  if (!el.dataset.orig) el.dataset.orig = el.textContent;
+  const text = el.dataset.orig;
+  el.innerHTML = [...text].map(ch =>
+    ch.trim()
+      ? `<span class="ff-c" data-t="${ch}">${FF[~~(Math.random() * FF.length)]}</span>`
+      : ch
+  ).join('');
+  el.querySelectorAll('.ff-c').forEach((s, i) => {
+    const tgt = s.dataset.t;
+    const ticks = 5 + ~~(Math.random() * 9);
+    let t = 0;
+    setTimeout(() => {
+      const iv = setInterval(() => {
+        if (++t >= ticks) {
+          s.textContent = tgt;
+          s.classList.add('ff-done');
+          clearInterval(iv);
+        } else {
+          s.textContent = FF[~~(Math.random() * FF.length)];
+        }
+      }, 50);
+    }, baseDelay + i * 36);
+  });
+}
+
+function flipScreen(id) {
+  const screen = document.getElementById(id);
+  if (!screen) return;
+  let d = 0;
+  screen.querySelectorAll('h1 .stack, h2.screen-title, .kicker, .role').forEach(el => {
+    flipEl(el, d);
+    d += 90;
+  });
 }
 
 // ── Navigation & SFX ─────────────────────────────────────────────
@@ -34,7 +76,7 @@ function renderBuilds() {
 const navBtns = document.querySelectorAll('.nav-btn');
 const screens = document.querySelectorAll('.screen');
 const hud = document.getElementById('hud');
-let sfxOn = false, actx = null;
+let sfxOn = true, actx = null;
 
 function blip(freq) {
   if (!sfxOn) return;
@@ -55,9 +97,11 @@ function show(id) {
   hud.classList.remove('open');
   window.scrollTo({ top: 0 });
   blip(id === 'home' ? 660 : 520);
+  flipScreen(id);
 }
 
 renderBuilds();
+flipScreen('home');
 
 navBtns.forEach(b => b.addEventListener('click', () => show(b.dataset.screen)));
 document.querySelectorAll('[data-goto]').forEach(b => b.addEventListener('click', () => { blip(880); show(b.dataset.goto); }));
