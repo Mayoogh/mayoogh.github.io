@@ -17,10 +17,9 @@
   <button class="menu-toggle" id="menuToggle">MENU</button>
   <nav id="nav">
     <button class="nav-btn active" data-screen="home">HOME</button>
-    <button class="nav-btn" data-screen="about">ABOUT</button>
-    <button class="nav-btn" data-screen="work">WORK</button>
     <button class="nav-btn" data-screen="builds">BUILDS</button>
-    <button class="nav-btn" data-screen="skills">SKILLS</button>
+    <button class="nav-btn" data-screen="work">WORK</button>
+    <button class="nav-btn" data-screen="about">ABOUT</button>
     <button class="nav-btn" data-screen="contact">CONTACT</button>
   </nav>
   <div class="hud-right">
@@ -40,21 +39,55 @@
         <div class="role">PRODUCT DEV LEAD &gt;&gt; HARDWARE</div>
         <p class="lead">PCB layout designer &amp; embedded hardware engineer. 5+ years building compact multilayer PCBs for industrial AGV robotics and consumer electronics.</p>
         <div class="start">
-          <button class="start-btn" data-goto="builds">&#9654; PRESS START</button>
+          <button class="start-btn" data-goto="builds">&#9654; VIEW BUILDS</button>
           <span class="blink">_</span>
         </div>
       </div>
       <div class="avatar-wrap">
-        <!-- Replace src with a real image path, e.g. assets/img/avatar.png -->
         <img class="avatar" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAAAAACN7WTCAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAC7ElEQVR4nJWW25UjOQxD79RRIAhFoTiUCaVDYSgIZT9IPcu9e7Y+3LaKIPgAqf7zA4D4v0/LP36h/R++2m670M5f/wJu94Hzwzb0/jv4z8/7zGHnN8lS/4q9GWU7PF0YY/EFewPtwOdRIEu6gn7lOMNcMYDNR9OhvjN+wwHxWTYAz4vw9lQk8XOeX8Cbb9Hqctl0+v4OzFfaj9qwFPoNVgahvr1vvRzmWfyKs848WrKRfFseyqpbw9xnPHs7pg3SAAL+WuljOgooFaqgPQxIPb3n+SUAA6XqQYgSqS6NfukCSoC6OJ+BPPT6HAao0Jeik+2ozqkcffkGnt625zWPR1mWEyEdpwejJDLDl2b7hbtD7XoHVW+umrXrtUWKRAJ57Dq9srxyzNcyNvSUxBv0BcggJOtkAMyVoNFbOQ7jXTu23OUN6uBzAqN8a6x1DWrszwIKmtNKgxCkygxQhqlhnk+3aNEBQkiR72QJXNRbzEclWk+TSJm6BOK3gA601Qirg+nhjjytfFIIx96aFsgBEBneke6AOe8GhmANbaoyt5G0iuDir6ruVUxGwJ7NHoS2gOgaC1fAWpBtzpF13cLCxzqQ99Tb35L1+IgRILY8b0Zngsttq68aVSkXzkuVnxpRb5E50KbVSk5RlYfUhKHLIxHTc/jGpbNSmekL0es2j1qqWSPJNVZbUUR0batHhAj3XYIYj9sq21ktqKWdrP5gQ3SP3iuLU4SBtm5C3lwS4LCcy2DmStN961uuOXYNi93Z70Jk3BxZSUV22Ag7upDzv5QI9UDZb+G0e9IrpidBDkAGlrilEIZ8sJozJFvywjrGGIy8jcUKilbJzMyrC66VarqiBDPLIPAjPIZDVtVavfqRc5YzISpJATxUukNzyrVaF5vUSyyFnGG1LGPWsFcaeK0InOts/pQB8cyT4XYiytBjercXgmciZo203GeWS03GuQjh2XVjKSk9GbwOtGyAhxNZBZkR5TwsSqva8g8joKQwve+CZQAAAABJRU5ErkJggg==" alt="Mayoogh Girish, pixelated portrait" />
         <span class="avatar-label">// MAYOOGH &#8212; PLAYER 1</span>
       </div>
     </div>
   </section>
 
+  <!-- ── BUILDS — populated by js/main.js from data/projects.js ── -->
+  <section class="screen" id="builds">
+    <div class="kicker">00000010 // SELECT LEVEL</div>
+    <h2 class="screen-title">BUILDS</h2>
+    <p class="builds-sub">Things I&#39;ve designed &amp; built. Hover to power up &mdash; click to open the case study.</p>
+    <div class="builds-grid" id="builds-grid"></div>
+  </section>
+
+  <!-- ── WORK ──────────────────────────────────────────────────── -->
+  <section class="screen" id="work">
+    <div class="kicker">00000011 // WORK LOG</div>
+    <h2 class="screen-title">EXPERIENCE</h2>
+    <div class="jobs">
+
+      <div class="job">
+        <div class="job-meta">JUL 2022 &mdash; PRESENT &nbsp;&middot;&nbsp; BANGALORE</div>
+        <h3 class="job-title">EMBEDDED DEV ENGINEER &nbsp;&middot;&nbsp; FLEXLI TECHNOLOGIES</h3>
+        <p class="job-desc">Lead the full electronics department for autonomous AGV warehouse sortation robots — from schematic to production. Designed a compact 4-layer motherboard that cut board size by 60% and production cost by 45%.</p>
+        <div>
+          <span class="pill">&#9632; AGV ROBOTICS</span><span class="pill">&#9632; 4-LAYER PCB</span><span class="pill">&#9632; KICAD</span><span class="pill">&#9632; BRING-UP</span><span class="pill">&#9632; DFM</span>
+        </div>
+      </div>
+
+      <div class="job">
+        <div class="job-meta">APR 2021 &mdash; 2022 &nbsp;&middot;&nbsp; REMOTE (NOIDA)</div>
+        <h3 class="job-title">EMBEDDED DEVELOPER &nbsp;&middot;&nbsp; OTOMATOR TECHNOLOGIES</h3>
+        <p class="job-desc">End-to-end PCB design for home automation products — compact boards to fit inside standard wall switch boxes, co-designed with enclosures for snap-fit assembly.</p>
+        <div>
+          <span class="pill">&#9632; HOME AUTOMATION</span><span class="pill">&#9632; PCB DESIGN</span><span class="pill">&#9632; ENCLOSURE</span><span class="pill">&#9632; FDM 3D PRINT</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- ── ABOUT ─────────────────────────────────────────────────── -->
   <section class="screen" id="about">
-    <div class="kicker">00000010 // PROFILE</div>
+    <div class="kicker">00000100 // PROFILE</div>
     <h2 class="screen-title">ABOUT</h2>
     <div class="grid-2">
       <div class="panel">
@@ -77,6 +110,21 @@
         </div>
       </div>
     </div>
+
+    <div class="grid-2" style="margin-top:22px">
+      <div class="panel">
+        <div class="meta">TOOLS &amp; PLATFORMS</div>
+        <span class="pill">&#9632; KICAD</span><span class="pill">&#9632; ALTIUM</span><span class="pill">&#9632; FUSION 360</span><span class="pill">&#9632; PSPICE</span>
+        <span class="pill">&#9632; ESP32</span><span class="pill">&#9632; ESP8266</span><span class="pill">&#9632; AVR</span>
+        <span class="pill">&#9632; C / C++</span><span class="pill">&#9632; PYTHON</span><span class="pill">&#9632; GIT</span>
+      </div>
+      <div class="panel--ghost panel">
+        <div class="meta">SPECIALISATIONS</div>
+        <span class="pill">&#9632; MULTILAYER PCB</span><span class="pill">&#9632; DFM / DFA</span><span class="pill">&#9632; I&#178;C</span><span class="pill">&#9632; SPI</span><span class="pill">&#9632; CAN</span><span class="pill">&#9632; UART</span>
+        <span class="pill">&#9632; GERBER / BOM</span><span class="pill">&#9632; JLCPCB</span><span class="pill">&#9632; FDM 3D PRINT</span>
+      </div>
+    </div>
+
     <h3 style="font-family:var(--display); font-size:20px; margin:34px 0 18px;">&#9733; ACHIEVEMENTS UNLOCKED</h3>
     <div class="awards">
       <div class="award"><span class="star">&#9733;</span><div><div class="t">KPIT SPARKLE FINALIST &#8212; TOP 30</div><div class="s">NATIONAL LEVEL &#183; 2020</div></div></div>
@@ -87,99 +135,9 @@
     </div>
   </section>
 
-  <!-- ── WORK ──────────────────────────────────────────────────── -->
-  <section class="screen" id="work">
-    <div class="kicker">00000011 // WORK LOG</div>
-    <h2 class="screen-title">EXPERIENCE</h2>
-    <div class="tl">
-      <div class="tl-item">
-        <div class="tl-node"><div class="tl-dot"></div><div class="tl-line"></div></div>
-        <div class="panel">
-          <div class="meta">JUL 2022 &#8212; PRESENT &#183; BANGALORE</div>
-          <h3>EMBEDDED DEV ENGINEER &#183; FLEXLI TECHNOLOGIES</h3>
-          <p style="color:#444; margin-top:4px">Project: E-commerce warehouse package sortation robots</p>
-          <ul>
-            <li>Lead embedded hardware &amp; electronics development for autonomous mobile sortation robots deployed at Sitics warehouse handling Meesho parcels.</li>
-            <li>Own the full electronics department: hardware dev, PCB design, validation, production coordination &amp; deployment support.</li>
-            <li>Designed a compact 4-layer AGV motherboard &#8212; cut board size by 60% and production cost by 45%.</li>
-            <li>Designed sensor PCBs under strict mechanical size constraints, plus custom cable-harness systems for easier assembly &amp; maintenance.</li>
-            <li>Handle schematic review, ERC/DRC validation, routing, board bring-up, unit testing &amp; manufacturing release (Gerber, BOM, JLCPCB).</li>
-          </ul>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-node"><div class="tl-dot"></div></div>
-        <div class="panel--ghost panel">
-          <div class="meta">APR 2021 &#8212; 2022 &#183; REMOTE (NOIDA)</div>
-          <h3>EMBEDDED DEVELOPER &#183; OTOMATOR TECHNOLOGIES</h3>
-          <p style="color:var(--gray); margin-top:4px">Project: Home automation product development</p>
-          <ul>
-            <li>End-to-end electronic product development for home automation systems.</li>
-            <li>Designed compact PCBs &amp; schematics to fit inside standard wall switch boards under tight space constraints.</li>
-            <li>PCB &amp; enclosure co-design for manufacturable, space-efficient integration.</li>
-            <li>Component selection balancing performance, size, cost &amp; availability.</li>
-            <li>Enclosure development &amp; rapid prototyping via FDM 3D printing and vacuum casting.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── BUILDS — populated by js/main.js from data/projects.js ── -->
-  <section class="screen" id="builds">
-    <div class="kicker">00000100 // SELECT LEVEL</div>
-    <h2 class="screen-title">BUILDS</h2>
-    <p class="builds-sub">Things I&#39;ve designed &amp; built. Hover a card to power it up. New levels added as I ship them.</p>
-    <div class="builds-grid" id="builds-grid"></div>
-  </section>
-
-  <!-- ── SKILLS ─────────────────────────────────────────────────── -->
-  <section class="screen" id="skills">
-    <div class="kicker">00000101 // SKILL TREE</div>
-    <h2 class="screen-title">SKILLS</h2>
-    <div class="grid-2">
-      <div class="panel">
-        <div class="skill-block">
-          <h4>eCAD TOOLS</h4>
-          <div class="bar-row"><span class="lbl">KICAD</span><div class="bar"><i></i><i></i><i></i><i></i><i></i></div></div>
-          <div class="bar-row"><span class="lbl">FUSION 360</span><div class="bar"><i></i><i></i><i></i><i></i><i class="off"></i></div></div>
-          <div class="bar-row"><span class="lbl">ALTIUM</span><div class="bar"><i></i><i></i><i></i><i class="off"></i><i class="off"></i></div></div>
-          <div class="bar-row"><span class="lbl">PSPICE</span><div class="bar"><i></i><i></i><i></i><i class="off"></i><i class="off"></i></div></div>
-        </div>
-        <div class="skill-block" style="margin-bottom:0">
-          <h4>MCU / SoC</h4>
-          <span class="pill">&#9632; ESP32</span><span class="pill">&#9632; ESP8266</span><span class="pill">&#9632; AVR</span>
-        </div>
-      </div>
-      <div class="panel">
-        <div class="skill-block">
-          <h4>PCB DESIGN</h4>
-          <div class="bar-row"><span class="lbl">LAYOUT</span><div class="bar"><i></i><i></i><i></i><i></i><i></i></div></div>
-          <div class="bar-row"><span class="lbl">ROUTING</span><div class="bar"><i></i><i></i><i></i><i></i><i></i></div></div>
-          <div class="bar-row"><span class="lbl">DFM / DFA</span><div class="bar"><i></i><i></i><i></i><i></i><i class="off"></i></div></div>
-          <div class="bar-row"><span class="lbl">BRING-UP</span><div class="bar"><i></i><i></i><i></i><i></i><i class="off"></i></div></div>
-        </div>
-        <div class="skill-block" style="margin-bottom:0">
-          <h4>INTERFACES</h4>
-          <span class="pill">&#9632; I&#178;C</span><span class="pill">&#9632; SPI</span><span class="pill">&#9632; CAN</span><span class="pill">&#9632; UART</span>
-        </div>
-      </div>
-    </div>
-    <div class="grid-2" style="margin-top:22px">
-      <div class="panel--ghost panel">
-        <h4 style="font-family:var(--pixel); font-size:10px; letter-spacing:1px; margin-bottom:14px;">LANGUAGES</h4>
-        <span class="pill">&#9632; C / C++</span><span class="pill">&#9632; PYTHON</span><span class="pill">&#9632; GIT</span>
-      </div>
-      <div class="panel--ghost panel">
-        <h4 style="font-family:var(--pixel); font-size:10px; letter-spacing:1px; margin-bottom:14px;">MANUFACTURING</h4>
-        <span class="pill">&#9632; GERBER / BOM</span><span class="pill">&#9632; JLCPCB</span><span class="pill">&#9632; FDM 3D PRINT</span><span class="pill">&#9632; VACUUM CAST</span>
-      </div>
-    </div>
-  </section>
-
   <!-- ── CONTACT ────────────────────────────────────────────────── -->
   <section class="screen" id="contact">
-    <div class="kicker">00000110 // OPEN CHANNEL</div>
+    <div class="kicker">00000101 // OPEN CHANNEL</div>
     <h2 class="screen-title">CONTACT</h2>
     <div class="terminal">
       <span class="p">C:\&gt;</span> open_channel --to mayoogh<br>
@@ -199,12 +157,20 @@
         <span class="ci"><svg viewBox="0 0 24 24" shape-rendering="crispEdges" fill="#0a0a0a"><rect x="6" y="4" width="12" height="12"/><rect x="9" y="8" width="2" height="2" fill="#f4f2ea"/><rect x="13" y="8" width="2" height="2" fill="#f4f2ea"/><rect x="8" y="16" width="3" height="4"/><rect x="13" y="16" width="3" height="4"/></svg></span>
         <span class="cl"><b>GITHUB</b><span>github.com/mayoogh</span></span>
       </a>
-      <a class="c-btn" href="https://linkedin.com/in/mayoogh" target="_blank" rel="noopener">
+      <a class="c-btn" href="https://linkedin.com/in/mayoogh-girish" target="_blank" rel="noopener">
         <span class="ci"><svg viewBox="0 0 24 24" shape-rendering="crispEdges" fill="#0a0a0a"><rect x="4" y="4" width="16" height="16"/><rect x="7" y="7" width="2" height="2" fill="#f4f2ea"/><rect x="7" y="11" width="2" height="6" fill="#f4f2ea"/><rect x="11" y="11" width="2" height="6" fill="#f4f2ea"/><rect x="13" y="13" width="2" height="4" fill="#f4f2ea"/></svg></span>
-        <span class="cl"><b>LINKEDIN</b><span>linkedin.com/in/mayoogh</span></span>
+        <span class="cl"><b>LINKEDIN</b><span>linkedin.com/in/mayoogh-girish</span></span>
       </a>
     </div>
   </section>
+
+  <!-- ── PROJECT MODAL ─────────────────────────────────────────── -->
+  <div id="modal-overlay" class="modal-overlay">
+    <div class="modal-box" id="modal-box">
+      <button class="modal-close" id="modalClose">&#x2715; CLOSE</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
 
 </main>
 

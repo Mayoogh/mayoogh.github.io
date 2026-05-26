@@ -6,32 +6,6 @@ const MOTIFS = {
   rocket: `<svg class="motif" viewBox="0 0 56 56" fill="currentColor" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg"><rect x="24" y="0" width="8" height="4"/><rect x="24" y="4" width="8" height="4"/><rect x="20" y="8" width="16" height="4"/><rect x="16" y="12" width="24" height="4"/><rect x="16" y="16" width="24" height="4"/><rect x="12" y="20" width="32" height="4"/><rect x="12" y="24" width="32" height="4"/><rect x="8" y="28" width="40" height="4"/><rect x="8" y="32" width="40" height="4"/><rect x="4" y="36" width="48" height="4"/><rect x="0" y="40" width="56" height="4"/><rect x="0" y="44" width="56" height="4"/><rect x="20" y="48" width="16" height="4"/><rect x="24" y="52" width="8" height="4"/></svg>`
 };
 
-function renderBuilds() {
-  const grid = document.getElementById('builds-grid');
-  if (!grid) return;
-
-  const cards = PROJECTS.map(p => `
-    <div class="build" style="--c:${p.color}">
-      <div class="media">${p.photo ? `<img class="media-photo" src="${p.photo}" alt="${p.title}">` : (MOTIFS[p.motif] || '')}</div>
-      <span class="lvl">${p.label}</span>
-      <div class="idx">${p.id}</div>
-      <h3 class="build-title">${p.title}</h3>
-      <div class="date">${p.date}</div>
-      <p>${p.description}</p>
-      <div class="pills">${p.pills.map(t => `<span class="pill">&#9632; ${t}</span>`).join('')}</div>
-    </div>
-  `).join('');
-
-  const placeholder = `<div class="coming">+ NEW BUILD <span class="blink">_</span><br><span style="font-size:9px; color:var(--gray)">DROP YOUR NEXT PROJECT HERE</span></div>`;
-
-  grid.innerHTML = cards + placeholder;
-
-  grid.querySelectorAll('.build').forEach(el => el.addEventListener('mouseenter', () => {
-    blip(440);
-    flipEl(el.querySelector('.build-title'), 0);
-  }));
-}
-
 // ── Split-flap effect ────────────────────────────────────────────
 const FF = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?#&+-><./';
 
@@ -71,8 +45,67 @@ function flipScreen(id) {
   });
 }
 
-// ── Navigation & SFX ─────────────────────────────────────────────
+// ── Project modal ─────────────────────────────────────────────────
+const overlay = document.getElementById('modal-overlay');
 
+function openModal(p) {
+  const content = document.getElementById('modal-content');
+  const c = p.color;
+  content.innerHTML = `
+    ${p.photo ? `<img class="modal-photo" src="${p.photo}" alt="${p.title}">` : ''}
+    <div class="modal-label" style="color:${c}">${p.label} &nbsp;&#183;&nbsp; ${p.id}</div>
+    <h2 class="modal-title">${p.title}</h2>
+    <div class="modal-date">${p.date}</div>
+    <div class="modal-pills">${p.pills.map(t => `<span class="pill" style="background:${c};color:#0c0c0c">&#9632; ${t}</span>`).join('')}</div>
+    ${p.problem ? `<div class="modal-section" style="border-color:${c}"><div class="modal-section-lbl" style="color:${c}">// PROBLEM</div><p>${p.problem}</p></div>` : ''}
+    <div class="modal-section" style="border-color:${c}"><div class="modal-section-lbl" style="color:${c}">// BUILT</div><p>${p.description}</p></div>
+    ${p.outcome ? `<div class="modal-section" style="border-color:${c}"><div class="modal-section-lbl" style="color:${c}">// OUTCOME</div><p>${p.outcome}</p></div>` : ''}
+  `;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  blip(660);
+  const title = content.querySelector('.modal-title');
+  if (title) setTimeout(() => flipEl(title, 0), 60);
+}
+
+function closeModal() {
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+  blip(440);
+}
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ── Builds grid ───────────────────────────────────────────────────
+function renderBuilds() {
+  const grid = document.getElementById('builds-grid');
+  if (!grid) return;
+
+  grid.innerHTML = PROJECTS.map(p => `
+    <div class="build" style="--c:${p.color}">
+      <div class="media">${p.photo ? `<img class="media-photo" src="${p.photo}" alt="${p.title}">` : (MOTIFS[p.motif] || '')}</div>
+      <span class="lvl">${p.label}</span>
+      <div class="idx">${p.id}</div>
+      <h3 class="build-title">${p.title}</h3>
+      <div class="date">${p.date}</div>
+      <p>${p.description}</p>
+      <div class="pills">${p.pills.map(t => `<span class="pill">&#9632; ${t}</span>`).join('')}</div>
+      <div class="card-open">&#9654; OPEN CASE STUDY</div>
+    </div>
+  `).join('');
+
+  grid.querySelectorAll('.build').forEach((el, i) => {
+    el.addEventListener('mouseenter', () => {
+      blip(440);
+      flipEl(el.querySelector('.build-title'), 0);
+    });
+    el.addEventListener('click', () => openModal(PROJECTS[i]));
+  });
+}
+
+// ── Navigation & SFX ─────────────────────────────────────────────
 const navBtns = document.querySelectorAll('.nav-btn');
 const screens = document.querySelectorAll('.screen');
 const hud = document.getElementById('hud');

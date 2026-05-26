@@ -56,7 +56,6 @@ main{ position:relative; z-index:3; max-width:1080px; margin:0 auto; padding:cal
 #about{ --accent:#00e5a8; }
 #work{ --accent:#ffcb05; }
 #builds{ --accent:#ff2e63; }
-#skills{ --accent:#4d7cff; }
 #contact{ --accent:#b15cff; }
 
 /* Split-flap characters */
@@ -108,12 +107,14 @@ p{ font-size:16px; }
 .stat:hover{ border-color:var(--accent); }
 .stat:hover b{ color:var(--accent); }
 
-/* WORK timeline */
-.tl{ display:flex; flex-direction:column; gap:22px; }
-.tl-item{ display:grid; grid-template-columns:auto 1fr; gap:18px; }
-.tl-node{ display:flex; flex-direction:column; align-items:center; padding-top:8px; }
-.tl-dot{ width:16px; height:16px; background:var(--white); box-shadow:0 0 0 4px var(--bg), 0 0 0 7px var(--white); }
-.tl-line{ flex:1; width:4px; background:var(--white); margin-top:8px; min-height:30px; }
+/* WORK compact jobs */
+.jobs{ display:flex; flex-direction:column; }
+.job{ border-left:4px solid var(--white); padding:0 0 32px 24px; margin-left:8px; position:relative; }
+.job::before{ content:""; position:absolute; left:-10px; top:4px; width:16px; height:16px; background:var(--white); }
+.job:last-child{ padding-bottom:0; border-color:transparent; }
+.job-meta{ font-family:var(--pixel); font-size:9px; letter-spacing:1px; color:var(--gray); margin-bottom:10px; }
+.job-title{ font-family:var(--display); font-size:clamp(16px,2vw,20px); line-height:1.2; margin-bottom:12px; }
+.job-desc{ font-size:15px; line-height:1.6; color:var(--gray); margin-bottom:14px; }
 
 /* BUILDS */
 .builds-sub{ color:var(--gray); margin-bottom:26px; font-size:15.5px; }
@@ -140,6 +141,8 @@ p{ font-size:16px; }
 .build .date{ font-family:var(--pixel); font-size:9px; letter-spacing:1px; color:var(--ink); margin-bottom:14px; transition:color .1s; }
 .build p{ font-size:14.5px; line-height:1.5; color:#1c1c18; transition:color .1s; }
 .build .pills{ margin-top:14px; }
+.build .card-open{ font-family:var(--pixel); font-size:8px; letter-spacing:1px; margin-top:14px; color:transparent; transition:color .1s; }
+.build:hover .card-open{ color:var(--c); }
 
 .build:hover{ transform:translate(-3px,-4px); border-color:var(--c); box-shadow:11px 12px 0 #000; }
 .build:hover .media{ opacity:1; }
@@ -155,7 +158,27 @@ p{ font-size:16px; }
 .coming b{ color:var(--white); }
 .coming .blink{ color:var(--white); animation:beat .8s steps(2) infinite; }
 
-/* SKILLS */
+/* MODAL */
+.modal-overlay{ position:fixed; inset:0; z-index:9000; background:rgba(0,0,0,.9);
+  display:flex; align-items:center; justify-content:center; padding:20px;
+  opacity:0; pointer-events:none; transition:opacity .18s; }
+.modal-overlay.open{ opacity:1; pointer-events:all; }
+.modal-box{ background:var(--bg); border:4px solid var(--white); box-shadow:12px 12px 0 #000;
+  max-width:700px; width:100%; max-height:88vh; overflow-y:auto; padding:32px;
+  animation:flip .22s steps(3); }
+.modal-close{ font-family:var(--pixel); font-size:9px; letter-spacing:1px; color:var(--white);
+  background:transparent; border:3px solid var(--white); padding:8px 12px; cursor:crosshair; margin-bottom:28px; display:block; }
+.modal-close:hover{ background:var(--accent); border-color:var(--accent); color:#000; }
+.modal-photo{ width:100%; aspect-ratio:16/9; object-fit:cover; border:4px solid var(--white); margin-bottom:28px; display:block; }
+.modal-label{ font-family:var(--pixel); font-size:8px; letter-spacing:1px; margin-bottom:10px; }
+.modal-title{ font-family:var(--display); font-size:clamp(22px,4vw,36px); line-height:.95; letter-spacing:-1px; margin-bottom:10px; text-shadow:4px 4px 0 #000; }
+.modal-date{ font-family:var(--pixel); font-size:9px; color:var(--gray); letter-spacing:1px; margin-bottom:18px; }
+.modal-pills{ margin-bottom:28px; }
+.modal-section{ margin-bottom:22px; border-left:3px solid; padding-left:16px; }
+.modal-section-lbl{ font-family:var(--pixel); font-size:9px; letter-spacing:2px; margin-bottom:8px; }
+.modal-section p{ font-size:15.5px; line-height:1.65; color:var(--gray); }
+
+/* SKILLS (kept for reference, section removed) */
 .skill-block{ margin-bottom:20px; }
 .skill-block h4{ font-family:var(--pixel); font-size:10px; letter-spacing:1px; margin-bottom:14px; }
 .bar-row{ display:flex; align-items:center; gap:12px; margin-bottom:11px; }
