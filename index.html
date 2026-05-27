@@ -20,10 +20,11 @@
     <button class="nav-btn" data-screen="builds">BUILDS</button>
     <button class="nav-btn" data-screen="work">WORK</button>
     <button class="nav-btn" data-screen="about">ABOUT</button>
-    <button class="nav-btn" data-screen="contact">CONTACT</button>
+    <button class="nav-btn" data-screen="contact">CONNECT</button>
   </nav>
   <div class="hud-right">
     <span class="hearts">&#9829;&#9829;&#9829;</span>
+    <a class="icon-btn resume-btn" href="assets/Mayoogh_Girish_Resume.pdf" download>RESUME &#9660;</a>
     <button class="icon-btn off" id="soundBtn">SFX</button>
   </div>
 </header>
@@ -44,7 +45,9 @@
         </div>
       </div>
       <div class="avatar-wrap">
-        <img class="avatar" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAAAAACN7WTCAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAC7ElEQVR4nJWW25UjOQxD79RRIAhFoTiUCaVDYSgIZT9IPcu9e7Y+3LaKIPgAqf7zA4D4v0/LP36h/R++2m670M5f/wJu94Hzwzb0/jv4z8/7zGHnN8lS/4q9GWU7PF0YY/EFewPtwOdRIEu6gn7lOMNcMYDNR9OhvjN+wwHxWTYAz4vw9lQk8XOeX8Cbb9Hqctl0+v4OzFfaj9qwFPoNVgahvr1vvRzmWfyKs848WrKRfFseyqpbw9xnPHs7pg3SAAL+WuljOgooFaqgPQxIPb3n+SUAA6XqQYgSqS6NfukCSoC6OJ+BPPT6HAao0Jeik+2ozqkcffkGnt625zWPR1mWEyEdpwejJDLDl2b7hbtD7XoHVW+umrXrtUWKRAJ57Dq9srxyzNcyNvSUxBv0BcggJOtkAMyVoNFbOQ7jXTu23OUN6uBzAqN8a6x1DWrszwIKmtNKgxCkygxQhqlhnk+3aNEBQkiR72QJXNRbzEclWk+TSJm6BOK3gA601Qirg+nhjjytfFIIx96aFsgBEBneke6AOe8GhmANbaoyt5G0iuDir6ruVUxGwJ7NHoS2gOgaC1fAWpBtzpF13cLCxzqQ99Tb35L1+IgRILY8b0Zngsttq68aVSkXzkuVnxpRb5E50KbVSk5RlYfUhKHLIxHTc/jGpbNSmekL0es2j1qqWSPJNVZbUUR0batHhAj3XYIYj9sq21ktqKWdrP5gQ3SP3iuLU4SBtm5C3lwS4LCcy2DmStN961uuOXYNi93Z70Jk3BxZSUV22Ag7upDzv5QI9UDZb+G0e9IrpidBDkAGlrilEIZ8sJozJFvywjrGGIy8jcUKilbJzMyrC66VarqiBDPLIPAjPIZDVtVavfqRc5YzISpJATxUukNzyrVaF5vUSyyFnGG1LGPWsFcaeK0InOts/pQB8cyT4XYiytBjercXgmciZo203GeWS03GuQjh2XVjKSk9GbwOtGyAhxNZBZkR5TwsSqva8g8joKQwve+CZQAAAABJRU5ErkJggg==" alt="Mayoogh Girish, pixelated portrait" />
+        <div class="crt-frame">
+          <img class="avatar" id="avatar-img" src="assets/img/avatar.jpg" alt="Mayoogh Girish" />
+        </div>
         <span class="avatar-label">// MAYOOGH &#8212; PLAYER 1</span>
       </div>
     </div>
@@ -111,6 +114,11 @@
       </div>
     </div>
 
+    <div class="panel age-panel" style="margin-top:22px">
+      <div class="meta">UPTIME</div>
+      <div class="age-display"><span id="age-counter">--</span> years old</div>
+    </div>
+
     <div class="grid-2" style="margin-top:22px">
       <div class="panel">
         <div class="meta">TOOLS &amp; PLATFORMS</div>
@@ -138,7 +146,7 @@
   <!-- ── CONTACT ────────────────────────────────────────────────── -->
   <section class="screen" id="contact">
     <div class="kicker">00000101 // OPEN CHANNEL</div>
-    <h2 class="screen-title">CONTACT</h2>
+    <h2 class="screen-title">CONNECT</h2>
     <div class="terminal">
       <span class="p">C:\&gt;</span> open_channel --to mayoogh<br>
       <span class="p">C:\&gt;</span> status: <b>AVAILABLE</b> for hardware &amp; PCB work<br>
@@ -164,13 +172,10 @@
     </div>
   </section>
 
-  <!-- ── PROJECT MODAL ─────────────────────────────────────────── -->
-  <div id="modal-overlay" class="modal-overlay">
-    <div class="modal-box" id="modal-box">
-      <button class="modal-close" id="modalClose">&#x2715; CLOSE</button>
-      <div id="modal-content"></div>
-    </div>
-  </div>
+  <!-- ── PROJECT DETAIL — populated by js/main.js on card click ── -->
+  <section class="screen" id="project">
+    <div id="project-content"></div>
+  </section>
 
 </main>
 

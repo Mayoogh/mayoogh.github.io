@@ -45,38 +45,44 @@ function flipScreen(id) {
   });
 }
 
-// ── Project modal ─────────────────────────────────────────────────
-const overlay = document.getElementById('modal-overlay');
-
-function openModal(p) {
-  const content = document.getElementById('modal-content');
+// ── Project detail page ───────────────────────────────────────────
+function openProject(p) {
+  const screen = document.getElementById('project');
+  screen.style.setProperty('--accent', p.color);
   const c = p.color;
-  content.innerHTML = `
-    ${p.photo ? `<img class="modal-photo" src="${p.photo}" alt="${p.title}">` : ''}
-    <div class="modal-label" style="color:${c}">${p.label} &nbsp;&#183;&nbsp; ${p.id}</div>
-    <h2 class="modal-title">${p.title}</h2>
-    <div class="modal-date">${p.date}</div>
-    <div class="modal-pills">${p.pills.map(t => `<span class="pill" style="background:${c};color:#0c0c0c">&#9632; ${t}</span>`).join('')}</div>
-    ${p.problem ? `<div class="modal-section" style="border-color:${c}"><div class="modal-section-lbl" style="color:${c}">// PROBLEM</div><p>${p.problem}</p></div>` : ''}
-    <div class="modal-section" style="border-color:${c}"><div class="modal-section-lbl" style="color:${c}">// BUILT</div><p>${p.description}</p></div>
-    ${p.outcome ? `<div class="modal-section" style="border-color:${c}"><div class="modal-section-lbl" style="color:${c}">// OUTCOME</div><p>${p.outcome}</p></div>` : ''}
+
+  const media = p.video
+    ? `<a class="proj-yt" href="https://www.youtube.com/watch?v=${p.video}" target="_blank" rel="noopener">
+        <img src="https://img.youtube.com/vi/${p.video}/maxresdefault.jpg" alt="${p.title} — watch on YouTube">
+        <span class="proj-yt-btn">&#9654;</span>
+        <span class="proj-yt-label">WATCH ON YOUTUBE</span>
+       </a>`
+    : '';
+
+  const sections = p.story
+    ? p.story.map(s => `
+        <div class="proj-section" style="border-color:${c}">
+          <div class="proj-section-lbl" style="color:${c}">${s.title}</div>
+          <div class="proj-section-body">${s.content}</div>
+        </div>`).join('')
+    : `
+        ${p.problem ? `<div class="proj-section" style="border-color:${c}"><div class="proj-section-lbl" style="color:${c}">// PROBLEM</div><p>${p.problem}</p></div>` : ''}
+        <div class="proj-section" style="border-color:${c}"><div class="proj-section-lbl" style="color:${c}">// BUILT</div><p>${p.description}</p>${p.photo ? `<img class="proj-photo" src="${p.photo}" alt="${p.title}" style="margin-top:20px">` : ''}</div>
+        ${p.outcome ? `<div class="proj-section" style="border-color:${c}"><div class="proj-section-lbl" style="color:${c}">// OUTCOME</div><p>${p.outcome}</p></div>` : ''}`;
+
+  document.getElementById('project-content').innerHTML = `
+    <button class="back-btn" id="backBtn">&#9664; BACK TO BUILDS</button>
+    ${media}
+    <div class="proj-label" style="color:${c}">${p.label} &nbsp;&#183;&nbsp; ${p.id}</div>
+    <h2 class="screen-title">${p.title}</h2>
+    <div class="proj-date">${p.date}</div>
+    <div class="proj-pills">${p.pills.map(t => `<span class="pill" style="background:${c};color:#0c0c0c">&#9632; ${t}</span>`).join('')}</div>
+    ${sections}
   `;
-  overlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  blip(660);
-  const title = content.querySelector('.modal-title');
-  if (title) setTimeout(() => flipEl(title, 0), 60);
-}
 
-function closeModal() {
-  overlay.classList.remove('open');
-  document.body.style.overflow = '';
-  blip(440);
+  document.getElementById('backBtn').addEventListener('click', () => show('builds'));
+  show('project');
 }
-
-document.getElementById('modalClose').addEventListener('click', closeModal);
-overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
 // ── Builds grid ───────────────────────────────────────────────────
 function renderBuilds() {
@@ -101,7 +107,7 @@ function renderBuilds() {
       blip(440);
       flipEl(el.querySelector('.build-title'), 0);
     });
-    el.addEventListener('click', () => openModal(PROJECTS[i]));
+    el.addEventListener('click', () => openProject(PROJECTS[i]));
   });
 }
 
@@ -132,6 +138,37 @@ function show(id) {
   blip(id === 'home' ? 660 : 520);
   flipScreen(id);
 }
+
+// ── CRT avatar pixelation ────────────────────────────────────────
+(function() {
+  const img = document.getElementById('avatar-img');
+  if (!img) return;
+  const RES = 72;
+  function pixelate() {
+    try {
+      const c = document.createElement('canvas');
+      c.width = RES; c.height = RES;
+      const ctx = c.getContext('2d');
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(img, 0, 0, RES, RES);
+      img.src = c.toDataURL('image/png');
+    } catch(e) {}
+  }
+  if (img.complete && img.naturalWidth) pixelate();
+  else img.addEventListener('load', pixelate, { once: true });
+})();
+
+// ── Live age counter ─────────────────────────────────────────────
+(function() {
+  const DOB = new Date('1997-09-11T00:00:00');
+  const MS_PER_YEAR = 365.25 * 24 * 60 * 60 * 1000;
+  const el = document.getElementById('age-counter');
+  function tick() {
+    if (el) el.textContent = ((Date.now() - DOB) / MS_PER_YEAR).toFixed(10);
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
 
 renderBuilds();
 flipScreen('home');
