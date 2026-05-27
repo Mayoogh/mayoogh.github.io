@@ -139,8 +139,7 @@ p{ font-size:16px; }
   display:block;
   width:min(256px,68vw); aspect-ratio:1;
   object-fit:cover; object-position:center center;
-  filter:grayscale(1) contrast(1.55) brightness(.78);
-  image-rendering:pixelated;
+  filter:grayscale(1) contrast(1.7) brightness(.72);
   animation:crt-flicker 7s steps(1) infinite;
 }
 @keyframes crt-flicker{

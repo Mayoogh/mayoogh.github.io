@@ -139,24 +139,6 @@ function show(id) {
   flipScreen(id);
 }
 
-// ── CRT avatar pixelation ────────────────────────────────────────
-(function() {
-  const img = document.getElementById('avatar-img');
-  if (!img) return;
-  const RES = 72;
-  function pixelate() {
-    try {
-      const c = document.createElement('canvas');
-      c.width = RES; c.height = RES;
-      const ctx = c.getContext('2d');
-      ctx.imageSmoothingEnabled = false;
-      ctx.drawImage(img, 0, 0, RES, RES);
-      img.src = c.toDataURL('image/png');
-    } catch(e) {}
-  }
-  if (img.complete && img.naturalWidth) pixelate();
-  else img.addEventListener('load', pixelate, { once: true });
-})();
 
 // ── Live age counter ─────────────────────────────────────────────
 (function() {
