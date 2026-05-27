@@ -117,6 +117,40 @@ const screens = document.querySelectorAll('.screen');
 const hud = document.getElementById('hud');
 let sfxOn = true, actx = null;
 
+function cheer() {
+  if (!sfxOn) return;
+  try {
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    const now = actx.currentTime;
+
+    // applause noise burst
+    const dur = 2.2;
+    const buf = actx.createBuffer(1, actx.sampleRate * dur, actx.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < d.length; i++) {
+      const t = i / actx.sampleRate;
+      d[i] = (Math.random() * 2 - 1) * Math.min(t * 8, 1) * Math.pow(1 - t / dur, 0.55) * 0.13;
+    }
+    const ns = actx.createBufferSource();
+    ns.buffer = buf; ns.connect(actx.destination); ns.start(now);
+
+    // excited minion squeaks — rapid upward swoops at irregular intervals
+    [[0,.88],[.07,1.1],[.13,.96],[.2,1.32],[.28,.84],
+     [.37,1.2],[.44,1.05],[.52,1.4],[.63,.92],[.72,1.15],
+     [.82,.88],[.9,1.3],[1.0,1.0],[1.1,1.22]
+    ].forEach(([t, kHz]) => {
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = 'sine';
+      o.frequency.setValueAtTime(kHz * 1000, now + t);
+      o.frequency.exponentialRampToValueAtTime(kHz * 1300, now + t + .07);
+      g.gain.setValueAtTime(.07, now + t);
+      g.gain.exponentialRampToValueAtTime(.0001, now + t + .11);
+      o.connect(g); g.connect(actx.destination);
+      o.start(now + t); o.stop(now + t + .13);
+    });
+  } catch(e) {}
+}
+
 function blip(freq) {
   if (!sfxOn) return;
   try {
@@ -164,6 +198,8 @@ document.getElementById('soundBtn').addEventListener('click', function() {
   if (sfxOn) blip(740);
 });
 document.querySelectorAll('.c-btn').forEach(el => el.addEventListener('mouseenter', () => blip(440)));
+const resumeBtn = document.querySelector('.resume-btn');
+if (resumeBtn) resumeBtn.addEventListener('click', cheer);
 
 // Konami code easter egg
 const seq = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];

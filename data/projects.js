@@ -146,9 +146,43 @@ const PROJECTS = [
     color: '#b15cff',
     motif: 'chip',
     description: 'Ozone-free UV-C LED disinfection system for HVAC &amp; indoor air — 99.9% efficiency. Designed the control-board PCB, custom aluminum-core UV-C LED strips for thermal management, plus the embedded firmware.',
-    problem: 'Client needed a safe, passive disinfection system for HVAC ducting. Existing UV-C lamp solutions ran hot and required bulky external heat sinks — unsuitable for compact duct integration.',
-    outcome: 'Delivered a production-ready system: custom aluminium-core LED strips with thermal management solved in-board, a dedicated control PCB, and embedded firmware. Validated at 99.9% disinfection efficiency with zero ozone output.',
-    pills: ['UV-C LED', 'ALU-CORE PCB', 'FIRMWARE']
+    pills: ['UV-C LED', 'ALU-CORE PCB', 'FIRMWARE'],
+    story: [
+      {
+        title: '// THE BRIEF',
+        content: `<p>A client needed to disinfect air passing through HVAC ducting — passively, safely, with no ozone.</p>
+<p>Existing UV-C lamp solutions ran hot and needed bulky external heatsinks that simply didn't fit inside compact duct cross-sections.</p>
+<p><strong>The ask: design something that actually fits inside the duct.</strong></p>`
+      },
+      {
+        title: '// WHY UV-C LEDS (AND WHY THEY\'RE HARD)',
+        content: `<p>UV-C LEDs at 265–280nm are lethal to airborne pathogens without producing ozone — unlike traditional UV-C lamps which emit at 185nm and require ozone filtering downstream.</p>
+<p>The hard part: UV-C LEDs are thermally inefficient. Most input power becomes heat, and heat kills the LED junction fast. Standard FR4 PCB has too high a thermal resistance — you need metal.</p>
+<p><strong>Thermal management was the core engineering problem to solve.</strong></p>`
+      },
+      {
+        title: '// WHAT WAS BUILT',
+        content: `<ul>
+  <li><strong>Custom aluminium-core LED strips</strong> — metal-core PCB layer conducts heat directly away from the LED junctions, eliminating any external heatsink</li>
+  <li><strong>Control PCB</strong> — manages power delivery, LED current regulation, and safety interlocks</li>
+  <li><strong>Embedded firmware</strong> — duty cycle control, fault detection, and operational logic</li>
+</ul>
+<p>The alu-core strip was the key insight: thermal management solved in-board. The strip itself <em>is</em> the heatsink.</p>`
+      },
+      {
+        title: '// THE RESULT',
+        content: `<p>Production-ready system validated at <strong>99.9% disinfection efficiency</strong> with <strong>zero ozone output</strong>.</p>
+<p>Compact enough for direct integration into standard HVAC ducting — no external hardware, no bulky heatsinks.</p>`
+      },
+      {
+        title: '// FULL CASE STUDY',
+        content: `<div class="wip-block">
+  <div class="wip-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <div class="wip-msg">// SCHEMATICS &amp; TEST DATA: LOADING<span class="wip-cursor">_</span></div>
+  <div class="wip-sub">THERMAL ANALYSIS · PCB STACK-UP · VALIDATION RESULTS · COMING SOON<br>DEVELOPER IS DEFINITELY NOT PROCRASTINATING</div>
+</div>`
+      }
+    ]
   },
   {
     id: '00000011',
@@ -234,9 +268,37 @@ const PROJECTS = [
     color: '#4d7cff',
     motif: 'rocket',
     description: 'Designed &amp; built an automated bell-scheduling system for a university, streamlining scheduling and operations — about 50% cheaper than the existing system it replaced.',
-    problem: 'Christ University relied on a fully manual bell system — every timetable change needed staff intervention, and the existing commercial solution was expensive to maintain and inflexible.',
-    outcome: 'Fully automated scheduler deployed and running at the university. Eliminated manual operation entirely and cut system cost by ~50% versus the previous solution.',
-    pills: ['AUTOMATION', 'SCHEDULER', '-50% COST']
+    pills: ['AUTOMATION', 'SCHEDULER', '-50% COST'],
+    story: [
+      {
+        title: '// THE PROBLEM',
+        content: `<p>Christ University ran on a fully manual bell system — every schedule change meant someone physically adjusting timers or flipping switches. Error-prone, inflexible, and entirely dependent on staff being in the right place at the right time.</p>
+<p>A commercial solution existed but was expensive to license, expensive to maintain, and still inflexible for custom timetable needs.</p>
+<p><strong>There had to be a better way to ring a bell.</strong></p>`
+      },
+      {
+        title: '// WHAT WAS BUILT',
+        content: `<p>A fully custom automated bell scheduling system — designed, built, and deployed from scratch.</p>
+<p>The system handles the complete timetable: regular periods, breaks, special schedules, and manual overrides — all configurable without any staff intervention during normal operation.</p>`
+      },
+      {
+        title: '// DEPLOYED & RUNNING',
+        content: `<p>The system was installed at Christ University and replaced the previous solution entirely.</p>
+<ul>
+  <li>Zero manual operation for routine scheduling</li>
+  <li>Cut system cost by ~<strong>50%</strong> versus the commercial alternative</li>
+  <li>Fully automated — staff no longer needed to manage the bell</li>
+</ul>`
+      },
+      {
+        title: '// FULL CASE STUDY',
+        content: `<div class="wip-block">
+  <div class="wip-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <div class="wip-msg">// SYSTEM ARCHITECTURE: LOADING<span class="wip-cursor">_</span></div>
+  <div class="wip-sub">HARDWARE DESIGN · CIRCUIT DIAGRAMS · DEPLOYMENT STORY · COMING SOON<br>YES, A BELL SYSTEM HAS A STORY. TRUST THE PROCESS.</div>
+</div>`
+      }
+    ]
   }
 
   // ── ADD YOUR NEXT PROJECT BELOW ──────────────────────────────
